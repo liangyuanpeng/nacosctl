@@ -31,11 +31,11 @@ Before contributing, you need to fork nacosctl to your GitHub repository.
 ## Contribution flow  
 
 ```bash
-$ git remote add streamnative https://github.com/streamnative/nacosctl.git
+$ git remote add nacosctl git@github.com:liangyuanpeng/nacosctl.git
 # sync with the remote master
 $ git checkout master
-$ git fetch streamnative
-$ git rebase streamnative/master
+$ git fetch nacosctl
+$ git rebase nacosctl/master
 $ git push origin master
 # create a PR branch
 $ git checkout -b your_branch   
