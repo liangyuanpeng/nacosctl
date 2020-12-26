@@ -18,6 +18,7 @@ package main
 
 import (
 	"github.com/liangyuanpeng/nacosctl/cmd"
+	_"github.com/liangyuanpeng/nacosctl/cmd/configuration"
 )
 
 func main() {

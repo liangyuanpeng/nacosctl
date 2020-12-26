@@ -30,6 +30,8 @@ var (
 	// Used for flags.
 	cfgFile     string
 	userLicense string
+	Host        string
+	Port        uint64
 
 	rootCmd = &cobra.Command{
 		Use:   "cobra",
@@ -43,17 +45,25 @@ func Execute() error {
 	return rootCmd.Execute()
 }
 
+func AddCommand(cmd *cobra.Command) {
+	rootCmd.AddCommand(cmd)
+}
+
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.cobra.yaml)")
-	rootCmd.PersistentFlags().StringP("author", "a", "YOUR NAME", "author name for copyright attribution")
-	rootCmd.PersistentFlags().StringVarP(&userLicense, "license", "l", "", "name of license for the project")
-	rootCmd.PersistentFlags().Bool("viper", true, "use Viper for configuration")
-	viper.BindPFlag("author", rootCmd.PersistentFlags().Lookup("author"))
-	viper.BindPFlag("useViper", rootCmd.PersistentFlags().Lookup("viper"))
-	viper.SetDefault("author", "NAME HERE <EMAIL ADDRESS>")
+	rootCmd.PersistentFlags().StringVar(&Host, "host", "localhost", "serverHost")
+	rootCmd.PersistentFlags().Uint64Var(&Port, "port", 8848, "port")
+
+	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.nacosctl.yaml)")
+	// rootCmd.PersistentFlags().StringP("author", "a", "liangyuanpeng", "author name for copyright attribution")
+	// rootCmd.PersistentFlags().StringVarP(&userLicense, "license", "l", "", "name of license for the project")
+	// rootCmd.PersistentFlags().Bool("viper", true, "use Viper for configuration")
+	// viper.BindPFlag("author", rootCmd.PersistentFlags().Lookup("author"))
+	// viper.BindPFlag("useViper", rootCmd.PersistentFlags().Lookup("viper"))
+	// viper.SetDefault("author", "liangyuanpengem@163.com")
 	viper.SetDefault("license", "apache")
+	// rootCmd.AddCommand(configuration.ConfigsCmd)
 
 }
 
@@ -75,7 +85,7 @@ func initConfig() {
 
 		// Search config in home directory with name ".cobra" (without extension).
 		viper.AddConfigPath(home)
-		viper.SetConfigName(".cobra")
+		viper.SetConfigName(".nacosctl")
 	}
 
 	viper.AutomaticEnv()
