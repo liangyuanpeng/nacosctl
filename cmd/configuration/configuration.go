@@ -26,6 +26,7 @@ var (
 	dataId      string
 	group       string
 	namespaceId string
+	content     string
 )
 
 // configsCmd represents the configs command
@@ -45,6 +46,11 @@ func init() {
 	getConfigsCmd.PersistentFlags().StringVar(&dataId, "dataId", "", "dataId")
 	getConfigsCmd.PersistentFlags().StringVar(&group, "group", "", "group")
 	getConfigsCmd.PersistentFlags().StringVar(&namespaceId, "namespaceId", "public", "namespaceId")
+
+	createConfigsCmd.PersistentFlags().StringVar(&dataId, "dataId", "", "dataId")
+	createConfigsCmd.PersistentFlags().StringVar(&group, "group", "", "group")
+	createConfigsCmd.PersistentFlags().StringVar(&namespaceId, "namespaceId", "public", "namespaceId")
+	createConfigsCmd.PersistentFlags().StringVar(&content, "content", "", "content")
 
 	rootcmd.AddCommand(configsCmd)
 	configsCmd.AddCommand(getConfigsCmd)

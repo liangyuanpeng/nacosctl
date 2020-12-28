@@ -13,8 +13,8 @@ import (
 
 var getConfigsCmd = &cobra.Command{
 	Use:   "get",
-	Short: "This API is used to create configurations in Nacos.",
-	Long:  `This API is used to create configurations in Nacos.`,
+	Short: "This API is used to get configurations in Nacos.",
+	Long:  `This API is used to get configurations in Nacos.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Hi.Here is Nacosctl 0.1.0 getConfigsCmd")
 
