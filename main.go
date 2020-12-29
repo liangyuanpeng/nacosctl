@@ -19,6 +19,7 @@ package main
 import (
 	"github.com/liangyuanpeng/nacosctl/cmd"
 	_ "github.com/liangyuanpeng/nacosctl/cmd/configuration"
+	_ "github.com/liangyuanpeng/nacosctl/cmd/console"
 	_ "github.com/liangyuanpeng/nacosctl/cmd/namespace"
 )
 
