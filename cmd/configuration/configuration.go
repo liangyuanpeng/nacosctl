@@ -47,6 +47,14 @@ func init() {
 	getConfigsCmd.PersistentFlags().StringVar(&group, "group", "", "group")
 	getConfigsCmd.PersistentFlags().StringVar(&namespaceId, "namespaceId", "public", "namespaceId")
 
+	deleteConfigsCmd.PersistentFlags().StringVar(&dataId, "dataId", "", "dataId")
+	deleteConfigsCmd.PersistentFlags().StringVar(&group, "group", "", "group")
+	deleteConfigsCmd.PersistentFlags().StringVar(&namespaceId, "namespaceId", "public", "namespaceId")
+
+	listenConfigsCmd.PersistentFlags().StringVar(&dataId, "dataId", "", "dataId")
+	listenConfigsCmd.PersistentFlags().StringVar(&group, "group", "", "group")
+	listenConfigsCmd.PersistentFlags().StringVar(&namespaceId, "namespaceId", "public", "namespaceId")
+
 	createConfigsCmd.PersistentFlags().StringVar(&dataId, "dataId", "", "dataId")
 	createConfigsCmd.PersistentFlags().StringVar(&group, "group", "", "group")
 	createConfigsCmd.PersistentFlags().StringVar(&namespaceId, "namespaceId", "public", "namespaceId")
@@ -55,4 +63,6 @@ func init() {
 	rootcmd.AddCommand(configsCmd)
 	configsCmd.AddCommand(getConfigsCmd)
 	configsCmd.AddCommand(createConfigsCmd)
+	configsCmd.AddCommand(deleteConfigsCmd)
+	configsCmd.AddCommand(listenConfigsCmd)
 }

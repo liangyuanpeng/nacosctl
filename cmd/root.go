@@ -34,7 +34,7 @@ var (
 	Port        uint64
 
 	rootCmd = &cobra.Command{
-		Use:   "cobra",
+		Use:   "nacosctl",
 		Short: "A Nacos Cli",
 		Long:  `Hi here is Nacos cli.`,
 	}

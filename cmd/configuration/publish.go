@@ -16,7 +16,7 @@ var createConfigsCmd = &cobra.Command{
 	Short: "This API is used to create configurations in Nacos.",
 	Long:  `This API is used to create configurations in Nacos.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Hi.Here is Nacosctl 0.1.0 getConfigsCmd")
+		fmt.Println("Hi.Here is Nacosctl 0.1.0 createConfigsCmd")
 
 		if dataId == "" || group == "" || content == "" {
 			log.Println("dataId and group and content must be not null")
@@ -40,8 +40,8 @@ var createConfigsCmd = &cobra.Command{
 			NamespaceId:         namespaceId, // 如果需要支持多namespace，我们可以场景多个client,它们有不同的NamespaceId
 			TimeoutMs:           5000,
 			NotLoadCacheAtStart: true,
-			LogDir:              "tmp/nacos/log",
-			CacheDir:            "tmp/nacos/cache",
+			LogDir:              "tmp\\nacos\\log",
+			CacheDir:            "tmp\\nacos\\cache",
 			RotateTime:          "1h",
 			MaxAge:              0,
 			LogLevel:            "debug",
@@ -55,12 +55,12 @@ var createConfigsCmd = &cobra.Command{
 			panic(err)
 		}
 
-		create(dataId, group, content)
+		create(dataId, group, content, namespaceId)
 	},
 }
 
 //get config from nacos
-func create(dataId, group, content string) {
+func create(dataId, group, content, namespaceId string) {
 	success, err := client.PublishConfig(vo.ConfigParam{
 		DataId:  dataId,
 		Group:   group,

@@ -55,12 +55,12 @@ var getConfigsCmd = &cobra.Command{
 			panic(err)
 		}
 
-		get(dataId, group)
+		get(dataId, group, namespaceId)
 	},
 }
 
 //get config from nacos
-func get(dataId, group string) {
+func get(dataId, group, namespaceId string) {
 	content, err := client.GetConfig(vo.ConfigParam{
 		DataId: dataId,
 		Group:  group})
