@@ -55,7 +55,7 @@ func init() {
 	rootCmd.PersistentFlags().StringVar(&Host, "host", "localhost", "serverHost")
 	rootCmd.PersistentFlags().Uint64Var(&Port, "port", 8848, "port")
 
-	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.nacosctl.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.nacosctl)")
 	// rootCmd.PersistentFlags().StringP("author", "a", "liangyuanpeng", "author name for copyright attribution")
 	// rootCmd.PersistentFlags().StringVarP(&userLicense, "license", "l", "", "name of license for the project")
 	// rootCmd.PersistentFlags().Bool("viper", true, "use Viper for configuration")
@@ -91,6 +91,6 @@ func initConfig() {
 	viper.AutomaticEnv()
 
 	if err := viper.ReadInConfig(); err == nil {
-		fmt.Println("Using config file:", viper.ConfigFileUsed())
+		fmt.Println(">>>Using config file:", viper.ConfigFileUsed())
 	}
 }

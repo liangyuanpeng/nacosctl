@@ -3,7 +3,6 @@ package configuration
 import (
 	"fmt"
 	"log"
-	"time"
 
 	rootcmd "github.com/liangyuanpeng/nacosctl/cmd"
 	"github.com/nacos-group/nacos-sdk-go/clients"
@@ -62,6 +61,8 @@ var listenConfigsCmd = &cobra.Command{
 
 //listen config from nacos
 func listen(dataId, group, namespaceId string) {
+	//TODO need sdk support custom listen time
+	//TODO support canel listen
 	err := client.ListenConfig(vo.ConfigParam{
 		DataId: dataId,
 		Group:  group,
@@ -72,5 +73,5 @@ func listen(dataId, group, namespaceId string) {
 	if err != nil {
 		panic(err)
 	}
-	time.Sleep(time.Duration(10) * time.Second)
+	// time.Sleep(time.Duration(10) * time.Second)
 }
