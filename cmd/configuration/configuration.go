@@ -22,11 +22,11 @@ import (
 )
 
 var (
-	client      config_client.IConfigClient
 	dataId      string
 	group       string
 	namespaceId string
 	content     string
+	client      config_client.IConfigClient
 )
 
 // configsCmd represents the configs command
@@ -35,10 +35,13 @@ var configsCmd = &cobra.Command{
 	Short: "This API is used to manager configurations in Nacos.",
 	Long:  `This API is used to manager configurations in Nacos.`,
 	Run: func(cmd *cobra.Command, args []string) {
-
 		cmd.Help()
 		// fmt.Println("Hi.Here is Nacosctl 0.1.0 configsCmd")
 	},
+}
+
+func initClient() {
+	client = rootcmd.GetClient(namespaceId)
 }
 
 func init() {

@@ -4,9 +4,6 @@ import (
 	"fmt"
 	"log"
 
-	rootcmd "github.com/liangyuanpeng/nacosctl/cmd"
-	"github.com/nacos-group/nacos-sdk-go/clients"
-	"github.com/nacos-group/nacos-sdk-go/common/constant"
 	"github.com/nacos-group/nacos-sdk-go/vo"
 	"github.com/spf13/cobra"
 )
@@ -24,48 +21,28 @@ var getConfigsCmd = &cobra.Command{
 			return
 		}
 
-		var err error
-		// 至少一个ServerConfig
-		serverConfigs := []constant.ServerConfig{
-			{
-				IpAddr:      rootcmd.Host,
-				ContextPath: "/nacos",
-				Port:        rootcmd.Port,
-				Scheme:      "http",
-			},
-		}
-
-		//创建clientConfig
-		clientConfig := constant.ClientConfig{
-			NamespaceId:         namespaceId, // 如果需要支持多namespace，我们可以场景多个client,它们有不同的NamespaceId
-			TimeoutMs:           5000,
-			NotLoadCacheAtStart: true,
-			LogDir:              "tmp\\nacos\\log",
-			CacheDir:            "tmp\\nacos\\cache",
-			RotateTime:          "1h",
-			MaxAge:              0,
-			LogLevel:            "debug",
-		}
-		// 创建动态配置客户端
-		client, err = clients.CreateConfigClient(map[string]interface{}{
-			"serverConfigs": serverConfigs,
-			"clientConfig":  clientConfig,
-		})
+		content, err := Get(dataId, group, namespaceId)
 		if err != nil {
-			panic(err)
+			log.Println("get config failed:", err)
+			return
 		}
-
-		get(dataId, group, namespaceId)
+		log.Println("content:", content)
 	},
 }
 
 //get config from nacos
-func get(dataId, group, namespaceId string) {
+func Get(dataID, group, namespaceID string) (string, error) {
+	//TODO Multiple namespace
+	if client == nil {
+		initClient()
+	}
 	content, err := client.GetConfig(vo.ConfigParam{
-		DataId: dataId,
+		DataId: dataID,
 		Group:  group})
 	if err != nil {
-		panic(err)
+		log.Println("get config.failed:", err)
+		return content, err
 	}
-	log.Println("content:", content)
+
+	return content, nil
 }

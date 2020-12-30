@@ -22,6 +22,9 @@ import (
 	"os"
 
 	homedir "github.com/mitchellh/go-homedir"
+	"github.com/nacos-group/nacos-sdk-go/clients"
+	"github.com/nacos-group/nacos-sdk-go/clients/config_client"
+	"github.com/nacos-group/nacos-sdk-go/common/constant"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -47,6 +50,40 @@ func Execute() error {
 
 func AddCommand(cmd *cobra.Command) {
 	rootCmd.AddCommand(cmd)
+}
+
+func GetClient(namespaceID string) config_client.IConfigClient {
+	var err error
+	// 至少一个ServerConfig
+	serverConfigs := []constant.ServerConfig{
+		{
+			IpAddr:      Host,
+			ContextPath: "/nacos",
+			Port:        Port,
+			Scheme:      "http",
+		},
+	}
+
+	//创建clientConfig
+	clientConfig := constant.ClientConfig{
+		NamespaceId:         namespaceID, // 如果需要支持多namespace，我们可以场景多个client,它们有不同的NamespaceId
+		TimeoutMs:           5000,
+		NotLoadCacheAtStart: true,
+		LogDir:              "tmp\\nacos\\log",
+		CacheDir:            "tmp\\nacos\\cache",
+		RotateTime:          "1h",
+		MaxAge:              0,
+		LogLevel:            "debug",
+	}
+	// 创建动态配置客户端
+	client, err := clients.CreateConfigClient(map[string]interface{}{
+		"serverConfigs": serverConfigs,
+		"clientConfig":  clientConfig,
+	})
+	if err != nil {
+		panic(err)
+	}
+	return client
 }
 
 func init() {
