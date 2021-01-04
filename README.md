@@ -11,6 +11,12 @@ go run main.go
 ```   
 and you will get the `Hi here is Nacos cli.`
 
+### Build from source code
+
+```bash
+make build
+chmod +x nacosctl && mv nacosctl /usr/local/bin/nacosctl
+```
 # TODO List
 - [ ] Nacos v1 Config (http for publish/get/del/listen)
 - [ ] Nacos v2 Config (grpc for publish/get/del/listen)  
