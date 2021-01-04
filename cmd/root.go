@@ -69,8 +69,8 @@ func GetClient(namespaceID string) config_client.IConfigClient {
 		NamespaceId:         namespaceID, // 如果需要支持多namespace，我们可以场景多个client,它们有不同的NamespaceId
 		TimeoutMs:           5000,
 		NotLoadCacheAtStart: true,
-		LogDir:              "tmp\\nacos\\log",
-		CacheDir:            "tmp\\nacos\\cache",
+		LogDir:              "tmp" + string(os.PathSeparator) + "nacos" + string(os.PathSeparator) + "log",
+		CacheDir:            "tmp" + string(os.PathSeparator) + "nacos" + string(os.PathSeparator) + "cache",
 		RotateTime:          "1h",
 		MaxAge:              0,
 		LogLevel:            "debug",
