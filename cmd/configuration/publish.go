@@ -23,18 +23,22 @@ var createConfigsCmd = &cobra.Command{
 
 		initClient()
 
-		create(dataId, group, content, namespaceId)
+		err := create(dataId, group, content, namespaceId)
+		if err != nil {
+			log.Println("create config failed!", err)
+		}
 	},
 }
 
 //get config from nacos
-func create(dataID, group, content, namespaceID string) {
+func create(dataID, group, content, namespaceID string) error {
 	success, err := client.PublishConfig(vo.ConfigParam{
 		DataId:  dataId,
 		Group:   group,
 		Content: content})
 	if err != nil {
-		panic(err)
+		return err
 	}
 	log.Println("success:", success)
+	return nil
 }

@@ -19,6 +19,7 @@ package cmd
 
 import (
 	"fmt"
+	"log"
 	"os"
 
 	homedir "github.com/mitchellh/go-homedir"
@@ -92,7 +93,7 @@ func init() {
 	rootCmd.PersistentFlags().StringVar(&Host, "host", "localhost", "serverHost")
 	rootCmd.PersistentFlags().Uint64Var(&Port, "port", 8848, "port")
 
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.nacosctl)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/config/nacosctl/config)")
 	// rootCmd.PersistentFlags().StringP("author", "a", "liangyuanpeng", "author name for copyright attribution")
 	// rootCmd.PersistentFlags().StringVarP(&userLicense, "license", "l", "", "name of license for the project")
 	// rootCmd.PersistentFlags().Bool("viper", true, "use Viper for configuration")
@@ -120,9 +121,10 @@ func initConfig() {
 			er(err)
 		}
 
-		// Search config in home directory with name ".cobra" (without extension).
+		log.Println("==================home:", home)
+
 		viper.AddConfigPath(home)
-		viper.SetConfigName(".nacosctl")
+		viper.SetConfigName("config")
 	}
 
 	viper.AutomaticEnv()
